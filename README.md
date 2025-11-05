@@ -76,14 +76,67 @@ endmodule
 
 # output Waveform
 
-<img width="1920" height="1080" alt="Screenshot 2025-11-05 090602" src="https://github.com/user-attachments/assets/985dd0ba-a41e-476b-bba8-a0f80fdf3be8" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/213ade56-c9ab-4867-86ea-154b5360ce35" />
+
 
 # ROM
- // write verilog code for ROM using $random
- 
- // Test bench
+# verilog code:
+ ```
+`timescale 1ns/1ps
+module rom (
+    input  wire [3:0] addr,   
+    output wire [7:0] data
+);
+    reg [7:0] rom [0:15];
+    initial begin
+        rom[0]  = 8'h10;
+        rom[1]  = 8'h20;
+        rom[2]  = 8'h30;
+        rom[3]  = 8'h40;
+        rom[4]  = 8'h50;
+        rom[5]  = 8'h60;
+        rom[6]  = 8'h70;
+        rom[7]  = 8'h80;
+        rom[8]  = 8'h90;
+        rom[9]  = 8'hA0;
+        rom[10] = 8'hB0;
+        rom[11] = 8'hC0;
+        rom[12] = 8'hD0;
+        rom[13] = 8'hE0;
+        rom[14] = 8'hF0;
+        rom[15] = 8'hFF;
+    end
+    assign data = rom[addr];
+endmodule
+```
+# Test bench
+```
+module tb_rom;
+    reg  [3:0] addr;
+    wire [7:0] data;
+    rom uut (
+        .addr(addr),
+        .data(data)
+    );
 
-// output Waveform
+    integer i;
+
+    initial begin
+        for (i = 0; i < 16; i = i + 1) begin
+            addr = i;
+            #10;   
+            $display("ADDR = %0d  DATA = %h", addr, data);
+        end
+        $finish;
+    end
+
+endmodule
+```
+
+# output Waveform
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3ef67cfe-d292-48f4-8cdd-598eb6313347" />
+
 
  # FIFO
  # write verilog code 
@@ -196,7 +249,7 @@ endmodule
 
 # output Waveform
 
-<img width="1920" height="1080" alt="Screenshot 2025-11-05 091133" src="https://github.com/user-attachments/assets/6a131cba-17dc-42e3-8cdd-20632d444535" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/a57bb8ff-e163-422d-ba58-64dafbf0fdc9" />
 
 
 # Conclusion
